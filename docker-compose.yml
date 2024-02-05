@@ -19,3 +19,10 @@ services:
     working_dir: /usr/src/app
     volumes:
       - ./python:/usr/src/app
+
+  lua:
+    image: esolang/lua:latest
+    stdin_open: true
+    working_dir: /../var/tmp
+    volumes:
+      - ./lua:/../var/tmp
