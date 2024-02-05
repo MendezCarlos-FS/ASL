@@ -1,0 +1,7 @@
+services:
+  php:
+    stdin_open: true
+    image: php:latest
+    working_dit: /var/www/html
+    volumes:
+      - ./php:/var/www/html
