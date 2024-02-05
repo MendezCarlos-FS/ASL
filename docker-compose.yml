@@ -1,7 +1,14 @@
 services:
   php:
-    stdin_open: true
     image: php:latest
-    working_dit: /var/www/html
+    stdin_open: true
+    working_dir: /var/www/html
     volumes:
       - ./php:/var/www/html
+
+  ruby:
+    image: ruby:latest
+    stdin_open: true
+    working_dir: /usr/src/app
+    volumes:
+      - ./ruby:/usr/src/app
