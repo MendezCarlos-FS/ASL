@@ -12,3 +12,10 @@ services:
     working_dir: /usr/src/app
     volumes:
       - ./ruby:/usr/src/app
+
+  python:
+    image: python:latest
+    stdin_open: true
+    working_dir: /usr/src/app
+    volumes:
+      - ./python:/usr/src/app
