@@ -40,3 +40,10 @@ services:
     working_dir: /usr/src/app
     volumes: 
       - ./rust:/usr/src/app
+
+  cplusplus:
+    image: gcc:latest
+    stdin_open: true
+    working_dir: /usr/src/app
+    volumes:
+      - ./c:/usr/src/app
