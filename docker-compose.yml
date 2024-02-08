@@ -26,3 +26,17 @@ services:
     working_dir: /../var/tmp
     volumes:
       - ./lua:/../var/tmp
+
+  node:
+    image: node:latest
+    stdin_open: true
+    working_dir: /usr/src/app
+    volumes:
+      - ./node:/usr/src/app
+
+  rust:
+    image: rust:latest
+    stdin_open: true
+    working_dir: /usr/src/app
+    volumes: 
+      - ./rust:/usr/src/app
