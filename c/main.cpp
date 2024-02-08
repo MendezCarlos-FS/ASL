@@ -3,7 +3,7 @@
 using namespace std;
 
 int main() {
-    cout << "Hello World!" << endl;
+    cout << "Hello ASL!" << endl;
 
     time_t ttime = time(0);
     char* dt = ctime(&ttime);

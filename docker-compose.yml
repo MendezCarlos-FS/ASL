@@ -47,3 +47,10 @@ services:
     working_dir: /usr/src/app
     volumes:
       - ./c:/usr/src/app
+
+  java:
+    image: eclipse-temurin:11
+    stdin_open: true
+    working_dir: /opt/app
+    volumes:
+      - ./java:/opt/app
