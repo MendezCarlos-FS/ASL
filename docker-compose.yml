@@ -54,3 +54,10 @@ services:
     working_dir: /opt/app
     volumes:
       - ./java:/opt/app
+
+  go:
+    image: golang:latest
+    stdin_open: true
+    working_dir: /usr/src/app
+    volumes:
+      - ./go:/usr/src/app
