@@ -1,0 +1,7 @@
+services:
+  node:
+    image: node:18.19.0
+    stdin_open: true
+    working_dir: /usr/src/app
+    volumes:
+      - ./node:/usr/src/app
