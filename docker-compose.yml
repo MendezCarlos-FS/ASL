@@ -3,6 +3,8 @@ services:
     image: node:18.19.0
     tty: true
     command: sh -c "npm install && npm install -g jest @jworkman-fs/wdv-cli && sleep infinity"
+    ports:
+      - 8080:80
     stdin_open: true
     working_dir: /usr/src/app
     volumes:
