@@ -1,10 +1,11 @@
 const contactData = require("@jworkman-fs/asl/src/Data/contacts");
 const Pager = require("@jworkman-fs/asl/src/Util/Pager");
 const { PagerLimitExceededError } = require("../exceptions/pager");
-const { InvalidEnumError, InvalidOperatorError, InvalidContactResourceError } = require("@jworkman-fs/asl/src/Exception/index");
-const { sortContacts, filterContacts, ContactModel } = require("@jworkman-fs/asl/src/index");
+const { InvalidEnumError, InvalidOperatorError, InvalidContactResourceError, DuplicateContactResourceError, InvalidContactSchemaError } = require("@jworkman-fs/asl/src/Exception/index");
+const { sortContacts, filterContacts, ContactModel, validateContactData } = require("@jworkman-fs/asl/src/index");
 
 const validOperators = ["eq", "gt", "gte", "lt", "lte"];
+const schemaFields = ['fname', 'lname', 'email', 'phone', 'birthday'];
 
 function getContacts(req, res) {
     const {page, size, sort, direction} = req.query;
@@ -49,7 +50,32 @@ function getContactById(req, res) {
     }
 }
 
+function createContact(req, res) {
+    const { body } = req;
+
+    try {
+        const invalidField = Object.keys(body).find(key => !schemaFields.includes(key))
+        if (invalidField) {
+            throw new InvalidContactSchemaError(`${invalidField} is not a valid field.`);
+        }
+        if (contactData.some(c => c.email === body.email)) {
+            throw new DuplicateContactResourceError("A contact with the same email already exists.");
+        }
+        if (!Object.values(body).every(value => !!value)) {
+            throw new InvalidContactResourceError("There is a field with an empty value.");
+        }
+
+        validateContactData(body);
+        const newContact = ContactModel.create(body);
+        res.set("Location", `contacts/${newContact.id}`);
+        res.status(303).json(newContact);
+    } catch(err) {
+        errorHandling(err, res);
+    }
+}
+
 function errorHandling(err, res) {
+    console.log(err);
     const message = err.message ? err.message : "A bad request was received. There might be an invalid value in the request."
     res.status(err.statusCode ? err.statusCode : 400).json({message});
 }
@@ -57,4 +83,5 @@ function errorHandling(err, res) {
 module.exports = {
     getContacts,
     getContactById,
+    createContact
 }
