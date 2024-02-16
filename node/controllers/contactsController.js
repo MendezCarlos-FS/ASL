@@ -74,6 +74,36 @@ function createContact(req, res) {
     }
 }
 
+function updateContact(req, res) {
+    const { body } = req;
+    const { id } = req.params;
+
+    try {
+        if (isNaN(Number(id))) {
+            throw new InvalidContactResourceError("The id provided is not a number.");
+        }
+
+        const updateSchemaFields = ["id", ...schemaFields];
+        const invalidField = Object.keys(body).find(key => !updateSchemaFields.includes(key))
+        if (invalidField) {
+            throw new InvalidContactSchemaError(`${invalidField} is not a valid field.`);
+        }
+        if (contactData.some(c => c.email === body.email)) {
+            throw new DuplicateContactResourceError("A contact with the same email already exists.");
+        }
+        if (!Object.values(body).every(value => !!value)) {
+            throw new InvalidContactResourceError("There is a field with an empty value.");
+        }
+
+        validateContactData(body, true);
+        const newContact = ContactModel.update(id, body);
+        res.set("Location", `${newContact.id}`);
+        res.status(303).json(newContact);
+    } catch(err) {
+        errorHandling(err, res);
+    }
+}
+
 function errorHandling(err, res) {
     console.log(err);
     const message = err.message ? err.message : "A bad request was received. There might be an invalid value in the request."
@@ -83,5 +113,6 @@ function errorHandling(err, res) {
 module.exports = {
     getContacts,
     getContactById,
-    createContact
+    createContact,
+    updateContact,
 }
