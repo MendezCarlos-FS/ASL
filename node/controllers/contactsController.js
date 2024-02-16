@@ -104,6 +104,22 @@ function updateContact(req, res) {
     }
 }
 
+function deleteContact(req, res) {
+    const { id } = req.params;
+
+    try {
+        if (isNaN(Number(id))) {
+            throw new InvalidContactResourceError("The id provided is not a number.");
+        }
+
+        ContactModel.remove(id);
+        res.set("Location", "");
+        res.redirect(303, "http://localhost:8080/v1/contacts");
+    } catch(err) {
+        errorHandling(err, res);
+    }
+}
+
 function errorHandling(err, res) {
     console.log(err);
     const message = err.message ? err.message : "A bad request was received. There might be an invalid value in the request."
@@ -115,4 +131,5 @@ module.exports = {
     getContactById,
     createContact,
     updateContact,
+    deleteContact,
 }
