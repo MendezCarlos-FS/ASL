@@ -8,13 +8,16 @@ const validOperators = ["eq", "gt", "gte", "lt", "lte"];
 const schemaFields = ['fname', 'lname', 'email', 'phone', 'birthday'];
 
 function getContacts(req, res) {
-    const {page, size, sort, direction} = req.query;
+    const {page, size, sort, direction, limit} = req.query;
     const filterBy = req.headers["x-filter-by"];
     const filterOperator = req.headers["x-filter-operator"];
     const filterValue = req.headers["x-filter-value"];
 
+    // Swagger says size in the documentation, tests are using limit.
+    const realLimit = limit ? limit : size;
+
     try {
-        if (size > 20) {
+        if (realLimit > 20) {
             throw new PagerLimitExceededError("The limit per page cannot exceed 20.")
         }
         if (direction && direction !== "asc" && direction !== "desc") {
@@ -24,8 +27,8 @@ function getContacts(req, res) {
             throw new InvalidOperatorError(`${filterOperator} is not a valid operator. Valid operators are eq, gt, gte, lt or lte.`);
         }
         const filteredData = filterContacts(filterBy, filterOperator, filterValue, contactData);
-        const sortedData = sortContacts(filteredData, sort ? sort : "fname", direction ? direction : "asc");
-        const pager = new Pager(sortedData, page ? page : 1, size);
+        const sortedData = sortContacts(filteredData, sort ? sort : "id", direction ? direction : "asc");
+        const pager = new Pager(sortedData, page ? page : 1, realLimit);
         res.set("X-Page-Total", pager.pages)
         res.set("X-Page-Next", pager.next())
         res.set("X-Page-Prev", pager.prev())
@@ -67,7 +70,7 @@ function createContact(req, res) {
 
         validateContactData(body);
         const newContact = ContactModel.create(body);
-        res.set("Location", `contacts/${newContact.id}`);
+        res.set("Location", `/v1/contacts/${newContact.id}`);
         res.status(303).json(newContact);
     } catch(err) {
         errorHandling(err, res);

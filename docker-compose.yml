@@ -4,7 +4,7 @@ services:
     tty: true
     command: sh -c "npm install && npm install -g jest @jworkman-fs/wdv-cli && sleep infinity"
     ports:
-      - 8080:80
+      - 8080:8080
     stdin_open: true
     working_dir: /usr/src/app
     volumes:
