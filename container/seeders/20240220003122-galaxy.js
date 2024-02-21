@@ -12,11 +12,10 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    await queryInterface.bulkInsert('Stars', [{
-      name: 'Sun',
-      size: 100000,
-      description: "So bright",
-      galaxyId: 1,
+    await queryInterface.bulkInsert('Galaxies', [{
+      name: 'Milky Way',
+      size: 50000000,
+      description: "So many stars. Also, we're here.",
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});

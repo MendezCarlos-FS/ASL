@@ -18,7 +18,6 @@ const show = async (req, res) => {
 // Create a new resource
 const create = async (req, res) => {
   const { body } = req;
-  console.log(body);
   await Planet.create(body);
   // Issue a redirect with a success 2xx code
   res.redirect(201, '/planets');

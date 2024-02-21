@@ -16,6 +16,7 @@ module.exports = {
       name: 'Earth',
       size: 10000,
       description: "My house is here",
+      starId: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});
