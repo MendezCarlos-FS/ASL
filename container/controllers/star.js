@@ -1,8 +1,8 @@
-const { Star } = require("../models/index");
+const { Star, Planet } = require("../models/index");
 
 // Show all resources
 const index = async (req, res) => {
-  const stars = await Star.findAll();
+  const stars = await Star.findAll({ include: [{model: Planet}] });
   // Respond with an array and 2xx status code
   res.status(200).json(stars);
 }
@@ -10,7 +10,7 @@ const index = async (req, res) => {
 // Show resource
 const show = async (req, res) => {
   const { id } = req.params;
-  const star = await Star.findOne({ where: { id }});
+  const star = await Star.findOne({ where: { id }, include: [{model: Planet}] });
   // Respond with a single object and 2xx code
   res.status(200).json(star);
 }
