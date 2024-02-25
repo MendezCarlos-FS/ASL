@@ -12,12 +12,9 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    await queryInterface.bulkInsert('Planets', [{
-      name: 'Earth',
-      size: 10000,
-      description: "My house is here",
-      createdAt: new Date(),
-      updatedAt: new Date()
+    await queryInterface.bulkInsert('StarsPlanets', [{
+      starId: 1,
+      planetId: 1,
     }], {});
   },
 
