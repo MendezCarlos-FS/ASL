@@ -4,7 +4,10 @@ const { Galaxy, Star, Planet } = require("../models/index");
 const index = async (req, res) => {
   const galaxies = await Galaxy.findAll({ include: {
     model: Star,
-    include: Planet
+    include: {
+      model: Planet,
+      through: {attributes: []}
+    }
   }});
   // Respond with an array and 2xx status code
   res.status(200).json(galaxies);
@@ -15,7 +18,10 @@ const show = async (req, res) => {
   const { id } = req.params;
   const galaxy = await Galaxy.findOne({ where: { id }, include: {
     model: Star,
-    include: Planet
+    include: {
+      model: Planet,
+      through: {attributes: []}
+    }
   }});
   // Respond with a single object and 2xx code
   res.status(200).json(galaxy)
