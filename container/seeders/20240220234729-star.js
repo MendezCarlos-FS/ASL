@@ -15,7 +15,7 @@ module.exports = {
     await queryInterface.bulkInsert('Stars', [{
       name: 'Sun',
       size: 100000,
-      description: "So bright",
+      description: "It's our Sun, hello!",
       galaxyId: 1,
       createdAt: new Date(),
       updatedAt: new Date()

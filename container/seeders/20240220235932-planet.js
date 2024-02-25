@@ -15,7 +15,7 @@ module.exports = {
     await queryInterface.bulkInsert('Planets', [{
       name: 'Earth',
       size: 10000,
-      description: "My house is here",
+      description: "The third planet closest to the Sun. We live here!",
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});
