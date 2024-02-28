@@ -9,11 +9,15 @@ const routers = require('./routers/index.js')
 
 app.use(express.json());
 
+// configure twig template engine
+app.set('view engine', 'twig');
+app.set('views', `${__dirname}/templates`);
+
 // Home page welcome middleware
 app.get('/', (req, res) => {
   res
     .status(200)
-    .send('Welcome to Star Tracker Library')
+    .render(`views/Default/home.html.twig`);
 })
 
 // Register our RESTful routers with our "app"
