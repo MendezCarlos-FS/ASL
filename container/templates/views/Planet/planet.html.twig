@@ -1,0 +1,31 @@
+{% extends 'layouts/_default.twig' %}
+
+{% block app %}
+    <h1>List of Planets</h1>
+    <a href="planets/new">
+        <button type="button">Add New Planet</button>
+    </a>
+    <ul>
+        {% for planet in planets %}
+            <li>
+                <h3>Name: {{planet.name}}</h3>
+                <h3>Size: {{planet.size}}</h3>
+                <h3>Description: {{planet.description}}</h3>
+                <h3>
+                    Belongs to:
+                    <ul>
+                        {% for star in planet.Stars %}
+                            <li>{{star.name}}</li>
+                        {% endfor %}
+                    </ul>
+                </h3>
+                <a href="planets/edit">
+                    <button type="button">Edit</button>
+                </a>
+                <a href="planets/delete">
+                    <button type="button">Delete</button>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
