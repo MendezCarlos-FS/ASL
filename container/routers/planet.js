@@ -8,12 +8,19 @@ const { checkAcceptHeader } = require("../utilities/middleware.js")
 // Create a new Router instance and call it "router"
 const router = new express.Router()
 
+const bodyParser = require("body-parser");
+
 // RESTful resource mappings
 router.get(`/`, checkAcceptHeader, planetCtlr.index)
-router.post(`/`, planetCtlr.create)
+router.get('/create', planetCtlr.form);
+router.post(`/`, bodyParser.urlencoded({extended: true}), planetCtlr.create)
 router.get(`/:id`, checkAcceptHeader, planetCtlr.show) 
-router.put(`/:id`, planetCtlr.update) 
-router.delete(`/:id`, planetCtlr.remove) 
+router.get('/:id/edit', planetCtlr.form);
+router.put(`/:id`, planetCtlr.update);
+// POST method with ID needed since forms do not support PUT method
+router.post(`/:id`, bodyParser.urlencoded({extended: true}), planetCtlr.update); 
+router.get(`/:id/delete`, planetCtlr.remove);
+router.delete(`/:id`, planetCtlr.remove);
 
 // export "router"
 module.exports = router

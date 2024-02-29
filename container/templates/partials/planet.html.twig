@@ -1,0 +1,17 @@
+<h3>Name: {{planet.name}}</h3>
+<h3>Size: {{planet.size}}</h3>
+<h3>Description: {{planet.description}}</h3>
+<h3>
+    Belongs to:
+    <ul>
+        {% for star in planet.Stars %}
+            <li>{{star.name}}</li>
+        {% endfor %}
+    </ul>
+</h3>
+<a href="/planets/{{planet.id}}/edit">
+    <button type="button">Edit</button>
+</a>
+<a href="/planets/{{planet.id}}/delete">
+    <button type="button">Delete</button>
+</a>

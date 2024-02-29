@@ -1,0 +1,34 @@
+{% extends 'layouts/_default.twig' %}
+
+{% block app %}
+    <h1>New Planet Form</h1>
+    <form method="POST"
+        {% if planet is defined %}
+            action="/planets/{{planet.id}}"
+        {% else %}
+            action="/planets"
+        {% endif %}>
+        <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text"
+            {% if planet is defined %}
+                value="{{planet.name}}"
+            {% endif %}/>
+        </div>
+
+        <div>
+            <label for="size">Size</label>
+            <input id="size" name="size" type="number"
+            {% if planet is defined %}
+                value="{{planet.size}}"
+            {% endif %}/>
+        </div>
+
+        <div>
+            <label for="description">Description</label>
+            <textarea id="description" name="description"/>{% if planet is defined %}{{planet.description}}{% endif %}</textarea>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+{% endblock app %}
