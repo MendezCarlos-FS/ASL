@@ -9,7 +9,11 @@ const index = async (req, res) => {
     }
   ] });
   // Respond with an array and 2xx status code
-  // res.status(200).json(planets)
+  if (res.locals.asJson) {
+    res.status(200).json(planets);
+    return;
+  }
+
   res.status(200).render('views/Planet/planet.html.twig', {
     planets
   });
