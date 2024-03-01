@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     size: DataTypes.INTEGER,
     description: DataTypes.TEXT,
+    imgPath: DataTypes.STRING,
     galaxyId:  {
       type: DataTypes.INTEGER,
       references: { model: "Galaxy", key: "id" }

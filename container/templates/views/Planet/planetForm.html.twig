@@ -2,12 +2,8 @@
 
 {% block app %}
     <h1>New Planet Form</h1>
-    <form method="POST"
-        {% if planet is defined %}
-            action="/planets/{{planet.id}}"
-        {% else %}
-            action="/planets"
-        {% endif %}>
+    <form method="POST" enctype="multipart/form-data"
+        action="/planets{% if planet is defined %}/{{planet.id}}{% endif %}">
         <div>
             <label for="name">Name</label>
             <input id="name" name="name" type="text"
@@ -43,6 +39,12 @@
                 </select>
             </div>
         {% endif %}
+
+        <div>
+            <label for="image">Upload Image:</label>
+            <br/>
+            <input type="file" name="image" id="image" />
+        </div>
 
         <button type="submit">Submit</button>
     </form>

@@ -18,6 +18,9 @@ module.exports = {
       description: {
         type: Sequelize.TEXT
       },
+      imgPath: {
+        type: Sequelize.STRING
+      },
       galaxyId: {
         type: Sequelize.INTEGER
       },

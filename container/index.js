@@ -13,6 +13,10 @@ app.use(express.json());
 app.set('view engine', 'twig');
 app.set('views', `${__dirname}/templates`);
 
+// enabling file uploads
+const fileUpload = require("express-fileupload");
+app.use(fileUpload());
+
 // Home page welcome middleware
 app.get('/', (req, res) => {
   res
