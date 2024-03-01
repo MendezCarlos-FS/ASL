@@ -1,0 +1,31 @@
+<h3>Name: {{star.name}}</h3>
+<h3>Size: {{star.size}}</h3>
+<h3>Description: {{star.description}}</h3>
+
+{% if star.Galaxy is defined and star.Galaxy.id is defined %}
+    <h3>Belongs to the {{star.Galaxy.name}} galaxy.</h3>
+{% else %}
+    <h3>Belongs to no galaxy.</h3>
+{% endif %}
+
+{% if star.Planets is defined and star.Planets.length > 0 %}
+    <h3>
+        Planets it has:
+        <ul>
+            {% for planet in star.Planets %}
+                <li>{{planet.name}}</li>
+            {% endfor %}
+        </ul>
+    </h3>
+{% else %}
+    <h3>
+        Does not have any planets.
+    </h3>
+{% endif %}
+
+<a href="/stars/{{star.id}}/edit">
+    <button type="button">Edit</button>
+</a>
+<a href="/stars/{{star.id}}/delete">
+    <button type="button">Delete</button>
+</a>

@@ -59,7 +59,6 @@ const form = async(req, res) => {
 // Create a new resource
 const create = async (req, res) => {
   const { body } = req;
-  console.log(body);
   const { starIds } = body;
   
   const planet = await Planet.create(body);
@@ -70,7 +69,6 @@ const create = async (req, res) => {
     return;
   }
 
-  // res.redirect(307, `/planets/${planet.id}`);
   res.redirect(303, `/planets`);
 }
 
@@ -91,7 +89,6 @@ const update = async (req, res) => {
     return;
   }
 
-  // res.redirect(307, `/planets/${req.params.id}`);
   res.redirect(303, `/planets`);
 }
 
@@ -100,9 +97,8 @@ const remove = async (req, res) => {
   const { id } = req.params;
   await StarsPlanets.destroy({where: { planetId: id }});
   await Planet.destroy({ where: { id }});
-  // Respond with a 2xx status code and bool
   if (res.locals.asJson) {
-    // Respond with a single object and 2xx code
+    // Respond with a 2xx status code and bool
       res.status(204).json(true);
       return;
     }

@@ -1,0 +1,65 @@
+{% extends 'layouts/_default.twig' %}
+
+{% block app %}
+    <h1>New Star Form</h1>
+    <form method="POST"
+        {% if star is defined %}
+            action="/stars/{{star.id}}"
+        {% else %}
+            action="/stars"
+        {% endif %}>
+        <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text"
+            {% if star is defined %}
+                value="{{star.name}}"
+            {% endif %}/>
+        </div>
+
+        <div>
+            <label for="size">Size</label>
+            <input id="size" name="size" type="number"
+            {% if star is defined %}
+                value="{{star.size}}"
+            {% endif %}/>
+        </div>
+
+        <div>
+            <label for="description">Description</label>
+            <textarea id="description" name="description"/>{% if star is defined %}{{star.description}}{% endif %}</textarea>
+        </div>
+
+        {% if galaxies is defined and galaxies.length > 0 %}
+            <div>
+                <label for="galaxyId">Belongs to</label>
+                <select id="galaxyId" name="galaxyId">
+                    <option value="">No Galaxy</option>
+                    {% for galaxy in galaxies %}
+                        <option value="{{galaxy.id}}"
+                        {% if star is defined and star.galaxyId == galaxy.id %}
+                            selected
+                        {% endif %}>
+                        {{galaxy.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        {% endif %}
+
+        {% if planets is defined and planets.length > 0 %}
+            <div>
+                <label for="planetIds">Belongs to</label>
+                <select id="planetIds" name="planetIds" multiple>
+                    {% for planet in planets %}
+                        <option value="{{planet.id}}"
+                        {% if star is defined and planet.id in selectedPlanetIds %}
+                            selected
+                        {% endif %}>
+                        {{planet.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        {% endif %}
+
+        <button type="submit">Submit</button>
+    </form>
+{% endblock app %}
