@@ -9,6 +9,11 @@
         {% endfor %}
     </ul>
 </h3>
+
+{% if planet.extension is defined %}
+    <img src="{{planet.id}}{{planet.extension}}"/>
+{% endif %}
+
 <a href="/planets/{{planet.id}}/edit">
     <button type="button">Edit</button>
 </a>

@@ -47,7 +47,7 @@ async function uploadImage(req, res, next) {
         return await req.files.image.mv(uploadPath)
         // Update the model with the new file extension uploaded
         .then(async () => await model.update(
-                { imgPath: uploadPath },
+                { extension },
                 { where: { id: Number(id) } }
             )
         )

@@ -18,7 +18,7 @@ module.exports = {
       description: {
         type: Sequelize.TEXT
       },
-      imgPath: {
+      extension: {
         type: Sequelize.STRING
       },
       createdAt: {

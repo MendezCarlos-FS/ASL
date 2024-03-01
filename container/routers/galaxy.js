@@ -9,6 +9,7 @@ const { checkAcceptHeader } = require("../utilities/middleware.js");
 const router = new express.Router()
 
 const bodyParser = require("body-parser");
+router.use(express.static(`${__dirname}/../public/uploads/galaxy/images/`));
 
 // RESTful resource mappings
 router.get(`/`, checkAcceptHeader, galaxyCtlr.index);

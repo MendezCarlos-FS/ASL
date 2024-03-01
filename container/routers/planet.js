@@ -9,6 +9,7 @@ const { checkAcceptHeader, uploadImage } = require("../utilities/middleware.js")
 const router = new express.Router()
 
 const bodyParser = require("body-parser");
+router.use(express.static(`${__dirname}/../public/uploads/planets/images/`));
 
 // RESTful resource mappings
 router.get(`/`, checkAcceptHeader, planetCtlr.index)
