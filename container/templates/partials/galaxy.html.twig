@@ -17,6 +17,10 @@
     </h3>
 {% endif %}
 
+{% if galaxy.extension is not null and galaxy.extension != "" %}
+    <img src="{{galaxy.id}}{{galaxy.extension}}"/>
+{% endif %}
+
 <a href="/galaxies/{{galaxy.id}}/edit">
     <button type="button">Edit</button>
 </a>

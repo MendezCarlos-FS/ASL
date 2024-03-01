@@ -10,7 +10,7 @@
     </ul>
 </h3>
 
-{% if planet.extension is defined %}
+{% if planet.extension is not null and planet.extension != "" %}
     <img src="{{planet.id}}{{planet.extension}}"/>
 {% endif %}
 

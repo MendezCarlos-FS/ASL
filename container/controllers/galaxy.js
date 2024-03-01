@@ -51,9 +51,13 @@ const form = async(req, res) => {
 }
 
 // Create a new resource
-const create = async (req, res) => {
+const create = async (req, res, next) => {
   const { body } = req;
-  await Galaxy.create(body);
+  const galaxy = await Galaxy.create(body);
+
+  req.galaxyId = galaxy.id;
+  next();
+
   if (res.locals.asJson) {
     // Issue a redirect with a success 2xx code
     res.redirect(201, '/galaxies');
@@ -64,10 +68,14 @@ const create = async (req, res) => {
 }
 
 // Update an existing resource
-const update = async (req, res) => {
+const update = async (req, res, next) => {
   const { body } = req;
   const { id } = req.params;
   await Galaxy.update(body, { where: { id }});
+
+  req.galaxyId = id;
+  next();
+
   if (res.locals.asJson) {
     // Respond with a single resource and 2xx code
     res.status(200).json(`/galaxies/${req.params.id}`);

@@ -23,6 +23,10 @@
     </h3>
 {% endif %}
 
+{% if star.extension is not null and star.extension != "" %}
+    <img src="{{star.id}}{{star.extension}}"/>
+{% endif %}
+
 <a href="/stars/{{star.id}}/edit">
     <button type="button">Edit</button>
 </a>

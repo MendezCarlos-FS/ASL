@@ -2,12 +2,8 @@
 
 {% block app %}
     <h1>New Galaxy Form</h1>
-    <form method="POST"
-        {% if galaxy is defined %}
-            action="/galaxies/{{galaxy.id}}"
-        {% else %}
-            action="/galaxies"
-        {% endif %}>
+    <form method="POST" enctype="multipart/form-data"
+        action="/galaxies{% if galaxy is defined %}/{{galaxy.id}}{% endif %}">
         <div>
             <label for="name">Name</label>
             <input id="name" name="name" type="text"
@@ -27,6 +23,12 @@
         <div>
             <label for="description">Description</label>
             <textarea id="description" name="description"/>{% if galaxy is defined %}{{galaxy.description}}{% endif %}</textarea>
+        </div>
+
+        <div>
+            <label for="image">Upload Image:</label>
+            <br/>
+            <input type="file" name="image" id="image" />
         </div>
 
         <button type="submit">Submit</button>

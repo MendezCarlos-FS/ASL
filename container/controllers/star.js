@@ -64,7 +64,7 @@ const form = async(req, res) => {
 }
 
 // Create a new resource
-const create = async (req, res) => {
+const create = async (req, res, next) => {
   const { body } = req;
   const { planetIds } = body;
   const tempStar =  {
@@ -73,6 +73,10 @@ const create = async (req, res) => {
   }
   const star = await Star.create(tempStar);
   await star.addPlanets(planetIds);
+
+  req.starId = star.id;
+  next();
+
   if (res.locals.asJson) {
     // Issue a redirect with a success 2xx code
     res.redirect(201, '/stars');
@@ -83,7 +87,7 @@ const create = async (req, res) => {
 }
 
 // Update an existing resource
-const update = async (req, res) => {
+const update = async (req, res, next) => {
   const { body } = req;
   const { id } = req.params;
   const tempStar =  {
@@ -97,6 +101,10 @@ const update = async (req, res) => {
   });
   const Op = Sequelize.Op;
   await StarsPlanets.destroy({where: { planetId: { [Op.notIn]: planetIds} , starId: id }});
+
+  req.starId = id;
+  next();
+
   if (res.locals.asJson) {
     // Respond with a single resource and 2xx code
     res.status(200).json(`/stars/${req.params.id}`);
