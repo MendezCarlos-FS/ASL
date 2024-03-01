@@ -13,14 +13,14 @@ const bodyParser = require("body-parser");
 // RESTful resource mappings
 router.get(`/`, checkAcceptHeader, starCtlr.index)
 router.get('/create', starCtlr.form);
-router.post(`/`, bodyParser.urlencoded({extended: true}), starCtlr.create)
+router.post(`/`, checkAcceptHeader, bodyParser.urlencoded({extended: true}), starCtlr.create)
 router.get(`/:id`, checkAcceptHeader, starCtlr.show);
 router.get('/:id/edit', starCtlr.form);
-router.put(`/:id`, starCtlr.update) 
+router.put(`/:id`, checkAcceptHeader, starCtlr.update);
 // POST method with ID needed since forms do not support PUT method
 router.post(`/:id`, bodyParser.urlencoded({extended: true}), starCtlr.update);
 router.get(`/:id/delete`, starCtlr.remove);
-router.delete(`/:id`, starCtlr.remove);
+router.delete(`/:id`, checkAcceptHeader, starCtlr.remove);
 
 // export "router"
 module.exports = router

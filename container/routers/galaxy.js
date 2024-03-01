@@ -11,16 +11,16 @@ const router = new express.Router()
 const bodyParser = require("body-parser");
 
 // RESTful resource mappings
-router.get(`/`, checkAcceptHeader, galaxyCtlr.index)
+router.get(`/`, checkAcceptHeader, galaxyCtlr.index);
 router.get('/create', galaxyCtlr.form);
-router.post(`/`, bodyParser.urlencoded({extended: true}), galaxyCtlr.create);
+router.post(`/`, checkAcceptHeader, bodyParser.urlencoded({extended: true}), galaxyCtlr.create);
 router.get(`/:id`, checkAcceptHeader, galaxyCtlr.show);
 router.get('/:id/edit', galaxyCtlr.form);
-router.put(`/:id`, galaxyCtlr.update) 
+router.put(`/:id`, checkAcceptHeader, galaxyCtlr.update);
 // POST method with ID needed since forms do not support PUT method
 router.post(`/:id`, bodyParser.urlencoded({extended: true}), galaxyCtlr.update);
 router.get(`/:id/delete`, galaxyCtlr.remove);
-router.delete(`/:id`, galaxyCtlr.remove) 
+router.delete(`/:id`, checkAcceptHeader, galaxyCtlr.remove);
 
 // export "router"
 module.exports = router
