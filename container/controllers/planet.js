@@ -1,4 +1,4 @@
-const { Planet, Star, StarsPlanets } = require("../models/index");
+const { Planet, Star, StarsPlanets, Sequelize } = require("../models/index");
 
 // Show all resources
 const index = async (req, res) => {
@@ -42,6 +42,7 @@ const show = async (req, res) => {
 const form = async(req, res) => {
   const { id } = req.params || -1;
   let planet;
+  let selectedStarIds = [];
   if (id >= 0) {
     planet = await Planet.findOne({ where: { id }, include: [
       {
@@ -49,8 +50,10 @@ const form = async(req, res) => {
         through: {attributes: []}
       }
     ] });
+    selectedStarIds = planet.Stars.map(star => star.id);
   }
-  res.render("views/Planet/planetForm.html.twig", { planet });
+  const stars = await Star.findAll();
+  res.render("views/Planet/planetForm.html.twig", { planet, stars, selectedStarIds });
 }
 
 // Create a new resource
@@ -75,7 +78,13 @@ const create = async (req, res) => {
 const update = async (req, res) => {
   const { body } = req;
   const { id } = req.params;
+  const starIds = typeof body.starIds === "string" ? [body.starIds] : (body.starIds || []);
   await Planet.update(body, { where: { id }});
+  starIds.forEach(async starId => {
+    await StarsPlanets.findOrCreate({ where: { planetId: id, starId }});
+  });
+  const Op = Sequelize.Op;
+  await StarsPlanets.destroy({where: { planetId: id, starId: { [Op.notIn]: starIds} }});
   if (res.locals.asJson) {
     // Respond with a single resource and 2xx code
     res.status(200).json(`/planets/${req.params.id}`);
