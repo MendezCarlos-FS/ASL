@@ -113,9 +113,9 @@ const remove = async (req, res) => {
   await Star.destroy({ where: { id }});
   if (res.locals.asJson) {
     // Respond with a 2xx status code and bool
-      res.status(204).json(true);
-      return;
-    }
+    res.status(204).json(true);
+    return;
+  }
 
   res.redirect(303, "/stars");
 }

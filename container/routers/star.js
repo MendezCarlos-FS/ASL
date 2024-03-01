@@ -14,7 +14,7 @@ const bodyParser = require("body-parser");
 router.get(`/`, checkAcceptHeader, starCtlr.index)
 router.get('/create', starCtlr.form);
 router.post(`/`, bodyParser.urlencoded({extended: true}), starCtlr.create)
-router.get(`/:id`, checkAcceptHeader, starCtlr.show) 
+router.get(`/:id`, checkAcceptHeader, starCtlr.show);
 router.get('/:id/edit', starCtlr.form);
 router.put(`/:id`, starCtlr.update) 
 // POST method with ID needed since forms do not support PUT method

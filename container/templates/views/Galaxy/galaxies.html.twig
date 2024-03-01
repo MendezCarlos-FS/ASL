@@ -1,0 +1,15 @@
+{% extends 'layouts/_default.twig' %}
+
+{% block app %}
+    <h1>List of Galaxies</h1>
+    <a href="/galaxies/create">
+        <button type="button">Add New Galaxy</button>
+    </a>
+    <ul>
+        {% for galaxy in galaxies %}
+            <li>
+                {% include 'partials/galaxy.html.twig' with galaxy %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
