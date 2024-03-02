@@ -1,28 +1,39 @@
 {% extends 'layouts/_default.twig' %}
 
 {% block app %}
-    <h1>New Galaxy Form</h1>
-    <form method="POST" enctype="multipart/form-data"
+    <h1 class="text-center">
+        {% if galaxy is defined %}
+            Edit
+        {% else %}
+            New
+        {% endif %}
+        Galaxy Form
+    </h1>
+    <form class="entry flex align-items-center justify-content-around" method="POST" enctype="multipart/form-data"
         action="/galaxies{% if galaxy is defined %}/{{galaxy.id}}{% endif %}">
-        <div>
-            <label for="name">Name</label>
-            <input id="name" name="name" type="text"
-            {% if galaxy is defined %}
-                value="{{galaxy.name}}"
-            {% endif %}/>
-        </div>
+        <div class="flex-col justify-content-center">
+            <div class="flex justify-content-between">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text"
+                {% if galaxy is defined %}
+                    value="{{galaxy.name}}"
+                {% endif %}/>
+            </div>
 
-        <div>
-            <label for="size">Size</label>
-            <input id="size" name="size" type="number"
-            {% if galaxy is defined %}
-                value="{{galaxy.size}}"
-            {% endif %}/>
-        </div>
+            <div class="flex justify-content-between">
+                <label for="size">Size</label>
+                <input id="size" name="size" type="number"
+                {% if galaxy is defined %}
+                    value="{{galaxy.size}}"
+                {% endif %}/>
+            </div>
 
-        <div>
-            <label for="description">Description</label>
-            <textarea id="description" name="description"/>{% if galaxy is defined %}{{galaxy.description}}{% endif %}</textarea>
+            <div class="flex justify-content-between align-items-center">
+                <label for="description">Description</label>
+                <textarea id="description" name="description"/>{% if galaxy is defined %}{{galaxy.description}}{% endif %}</textarea>
+            </div>
+
+            <button class="align-self-center" type="submit">Submit</button>
         </div>
 
         <div>
@@ -31,6 +42,5 @@
             <input type="file" name="image" id="image" />
         </div>
 
-        <button type="submit">Submit</button>
     </form>
 {% endblock app %}

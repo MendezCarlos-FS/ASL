@@ -36,7 +36,7 @@ const show = async (req, res) => {
     return;
   }
 
-  res.status(200).render('partials/galaxy.html.twig', {
+  res.status(200).render('views/Galaxy/galaxy.html.twig', {
     galaxy
   });
 }

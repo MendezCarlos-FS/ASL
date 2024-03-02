@@ -1,0 +1,37 @@
+<section class="flex align-items-center justify-content-between entry">
+    <div>
+        <h2 class="text-center">{{galaxy.name}}</h2>
+        <h3>Size: {{galaxy.size}}</h3>
+        <h3>Description: {{galaxy.description}}</h3>
+        
+        {% if galaxy.Stars is defined and galaxy.Stars.length > 0 %}
+            <h3>
+                Stars it has:
+                <ul>
+                    {% for star in galaxy.Stars %}
+                        <li>{{star.name}}</li>
+                    {% endfor %}
+                </ul>
+            </h3>
+        {% else %}
+            <h3>
+                Does not have any stars.
+            </h3>
+        {% endif %}
+
+        <div class="flex justify-content-center">
+            <a href="/galaxies/{{galaxy.id}}/edit">
+                <button type="button">Edit</button>
+            </a>
+            <a href="/galaxies/{{galaxy.id}}/delete">
+                <button type="button">Delete</button>
+            </a>
+        </div>
+    </div>
+
+    <div>
+        {% if galaxy.extension is not null and galaxy.extension != "" %}
+            <img src="{{galaxy.id}}{{galaxy.extension}}"/>
+        {% endif %}
+    </div>
+</section>
