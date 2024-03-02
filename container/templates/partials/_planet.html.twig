@@ -4,20 +4,20 @@
         <h3>Size: {{planet.size}}</h3>
         <h3>Description: {{planet.description}}</h3>
 
-    {% if planet.Stars is defined and planet.Stars.length > 0 %}
-        <h3>
-            Belongs to these stars:
-            <ul>
-                {% for star in planet.Stars %}
-                    <li>{{star.name}}</li>
-                {% endfor %}
-            </ul>
-        </h3>
-    {% else %}
-        <h3>
-            Does not belong to any star.
-        </h3>
-    {% endif %}
+        {% if planet.Stars is defined and planet.Stars.length > 0 %}
+            <h3>
+                Belongs to these stars:
+                <ul>
+                    {% for star in planet.Stars %}
+                        <li>{{star.name}}</li>
+                    {% endfor %}
+                </ul>
+            </h3>
+        {% else %}
+            <h3>
+                Does not belong to any star.
+            </h3>
+        {% endif %}
 
         <div class="flex justify-content-center">
             <a href="/planets/{{planet.id}}/edit">

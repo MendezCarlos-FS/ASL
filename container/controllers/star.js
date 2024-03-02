@@ -40,7 +40,7 @@ const show = async (req, res) => {
     return;
   }
 
-  res.status(200).render('partials/star.html.twig', {
+  res.status(200).render('views/Star/star.html.twig', {
     star
   });
 }

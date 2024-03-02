@@ -1,60 +1,71 @@
 {% extends 'layouts/_default.twig' %}
 
 {% block app %}
-    <h1>New Star Form</h1>
-    <form method="POST" enctype="multipart/form-data"
+    <h1 class="text-center">
+        {% if star is defined %}
+            Edit
+        {% else %}
+            New
+        {% endif %}
+        Star Form
+    </h1>
+    <form class="entry flex align-items-center justify-content-around" method="POST" enctype="multipart/form-data"
         action="/stars{% if star is defined %}/{{star.id}}{% endif %}">
-        <div>
-            <label for="name">Name</label>
-            <input id="name" name="name" type="text"
-            {% if star is defined %}
-                value="{{star.name}}"
-            {% endif %}/>
-        </div>
-
-        <div>
-            <label for="size">Size</label>
-            <input id="size" name="size" type="number"
-            {% if star is defined %}
-                value="{{star.size}}"
-            {% endif %}/>
-        </div>
-
-        <div>
-            <label for="description">Description</label>
-            <textarea id="description" name="description"/>{% if star is defined %}{{star.description}}{% endif %}</textarea>
-        </div>
-
-        {% if galaxies is defined and galaxies.length > 0 %}
-            <div>
-                <label for="galaxyId">Belongs to</label>
-                <select id="galaxyId" name="galaxyId">
-                    <option value="">No Galaxy</option>
-                    {% for galaxy in galaxies %}
-                        <option value="{{galaxy.id}}"
-                        {% if star is defined and star.galaxyId == galaxy.id %}
-                            selected
-                        {% endif %}>
-                        {{galaxy.name}}</option>
-                    {% endfor %}
-                </select>
+        <div class="flex-col justify-content-center">
+            <div class="flex justify-content-between">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text"
+                {% if star is defined %}
+                    value="{{star.name}}"
+                {% endif %}/>
             </div>
-        {% endif %}
 
-        {% if planets is defined and planets.length > 0 %}
-            <div>
-                <label for="planetIds">Belongs to</label>
-                <select id="planetIds" name="planetIds" multiple>
-                    {% for planet in planets %}
-                        <option value="{{planet.id}}"
-                        {% if star is defined and planet.id in selectedPlanetIds %}
-                            selected
-                        {% endif %}>
-                        {{planet.name}}</option>
-                    {% endfor %}
-                </select>
+            <div class="flex justify-content-between">
+                <label for="size">Size</label>
+                <input id="size" name="size" type="number"
+                {% if star is defined %}
+                    value="{{star.size}}"
+                {% endif %}/>
             </div>
-        {% endif %}
+
+            <div class="flex justify-content-between align-items-center">
+                <label for="description">Description</label>
+                <textarea id="description" name="description"/>{% if star is defined %}{{star.description}}{% endif %}</textarea>
+            </div>
+
+            {% if galaxies is defined and galaxies.length > 0 %}
+                <div class="flex justify-content-between align-items-center">
+                    <label class="text-center" for="galaxyId">Belongs to Galaxy</label>
+                    <select class="w-100" id="galaxyId" name="galaxyId">
+                        <option value="">No Galaxy</option>
+                        {% for galaxy in galaxies %}
+                            <option value="{{galaxy.id}}"
+                            {% if star is defined and star.galaxyId == galaxy.id %}
+                                selected
+                            {% endif %}>
+                            {{galaxy.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
+
+            {% if planets is defined and planets.length > 0 %}
+                <div class="flex justify-content-between align-items-center">
+                    <label class="text-center" for="planetIds">Has planets</label>
+                    <select class="w-100" id="planetIds" name="planetIds" multiple>
+                        {% for planet in planets %}
+                            <option value="{{planet.id}}"
+                            {% if star is defined and planet.id in selectedPlanetIds %}
+                                selected
+                            {% endif %}>
+                            {{planet.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
+
+            <button class="align-self-center" type="submit">Submit</button>
+        </div>
 
         <div>
             <label for="image">Upload Image:</label>
@@ -62,6 +73,5 @@
             <input type="file" name="image" id="image" />
         </div>
 
-        <button type="submit">Submit</button>
     </form>
 {% endblock app %}

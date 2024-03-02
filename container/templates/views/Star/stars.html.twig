@@ -1,15 +1,13 @@
 {% extends 'layouts/_default.twig' %}
 
 {% block app %}
-    <h1>List of Stars</h1>
-    <a href="/stars/create">
-        <button type="button">Add New Star</button>
-    </a>
-    <ul>
-        {% for star in stars %}
-            <li>
-                {% include 'partials/star.html.twig' with star %}
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="flex-col align-items-center">
+        <h1 class="text-center">List of Stars</h1>
+        <a href="/stars/create">
+            <button type="button">Add New Star</button>
+        </a>
+    </div>
+    {% for star in stars %}
+        {% include 'partials/_star.html.twig' with star %}
+    {% endfor %}
 {% endblock %}
