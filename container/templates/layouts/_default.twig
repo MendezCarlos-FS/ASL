@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/app.css"/>
     <title>Space Tracker API</title>
 </head>
 <body>
-    <main>
+    {% include "partials/_header.html.twig" %}
+
+    <main class="container">
         {% block app %}
         {% endblock %}
     </main>
+
+    {% include "partials/_footer.html.twig" %}
 </body>
 </html>

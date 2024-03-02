@@ -17,11 +17,13 @@ app.set('views', `${__dirname}/templates`);
 const fileUpload = require("express-fileupload");
 app.use(fileUpload());
 
+app.use(express.static(`${__dirname}/public`));
+
 // Home page welcome middleware
 app.get('/', (req, res) => {
   res
     .status(200)
-    .render(`views/Default/home.html.twig`);
+    .render(`layouts/_default.twig`);
 })
 
 // Register our RESTful routers with our "app"
