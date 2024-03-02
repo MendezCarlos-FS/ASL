@@ -34,7 +34,7 @@ const show = async (req, res) => {
     return;
   }
 
-  res.status(200).render('partials/planet.html.twig', {
+  res.status(200).render('views/Planet/planet.html.twig', {
     planet
   });
 }

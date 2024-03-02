@@ -36,11 +36,10 @@ async function uploadImage(req, res, next) {
         return;
     }
 
-    console.log(id);
+    const files = req.files || [];
 
     // Check to see if there are any files to upload
-    console.log(Object.keys(req.files));
-    if (Object.keys(req.files).length > 0) {
+    if (Object.keys(files).length > 0) {
         // Get the extension from the incoming file (ie: .png,.jpg,.gif)
         const extension = path.extname(req.files.image.name);
         // Render the final file path based off the imageId and file extension
