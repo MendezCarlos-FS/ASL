@@ -23,7 +23,7 @@ app.use(express.static(`${__dirname}/public`));
 app.get('/', (req, res) => {
   res
     .status(200)
-    .render(`layouts/_default.twig`);
+    .render(`views/Default/home.html.twig`);
 })
 
 // Register our RESTful routers with our "app"
